@@ -1,0 +1,125 @@
+@startuml
+
+class Chica{
+  felicidad
+  emocionDominante 
+  edad
+  recuerdosDelDia 
+  pensamintosCentrales 
+  procesosMentales 
+  memoriaALargoPlazo 
+  pensamientoActual
+  --
+  recuerdosDelDia()
+  vivirEvento(unRecuerdo)
+  asentar(unRecuerdo)
+  nivelDeAlegriaMayorA(unaCantidad)
+  disminuirFelicidadEn(unaCantidad)
+
+  recuerdosRecientes() 
+  pensamintosCentralesDificiles()
+  dormir()
+  asentarVarios(recuerdos)
+  recuerdosCon(palabraClave)
+  profundizarRecuerdos()
+  recuerdosPocoImportantes()
+  estaDesequilibrada()
+  pensamientosCentralesEnMemoriaALargoPlazo()
+  todosLosRecuerdosDeUnaEmocion()
+  tenerDesequilibrioHormonal()
+  perderUltimosPensamientosCentrales() 
+  pensamientosMasAntiguos() 
+  restaurarFelicidad()
+  liberarRecuerdosDelDia()
+  rememorar()
+  pensamientosAntiguos()
+  cantidadDeRepeticionesDe(recuerdo)
+  tieneUnDejaVu()
+}
+interface Emocion{
+  asentarEn(unaPersona, unRecuerdo)
+  negar(unRecuerdo)
+
+}
+object alegria{
+  --
+  asentarEn(unaPersona, unRecuerdo)
+  negar(unRecuerdo)
+}
+object tristeza{
+  --
+  asentarEn(unaPersona, unRecuerdo)
+  negar(unRecuerdo)
+
+}
+class emocionSinPoder{
+  --
+  asentarEn(unaPersona, unRecuerdo)
+}
+class EmocionCompuesta{
+    emociones
+    --
+    negar(unRecuerdo)
+    esAlegre()
+    asentarEn(unaPersona, unRecuerdo)
+}
+
+alegria .u.|> Emocion
+tristeza .u.|> Emocion
+emocionSinPoder .u.|> Emocion
+EmocionCompuesta .u.|> Emocion
+Chica -> Emocion
+
+class Recuerdo{
+  descripcion
+  fecha
+  emocionDominante
+   --
+  esDificilDeExplicar()
+  esAlegre()
+  esDe(unaEmocion)
+  tiene(palabraClave)
+  antiguedad()
+  esMasAntiguoQue(unaEdad)
+  edadDelRecuerdo()
+}
+Chica ->"*" Recuerdo
+
+interface procesosMentales{
+    afectarA(unaPersona)
+}
+abstract class Asentamiento{
+    --
+    afectarA(unaPersona)
+    {abstract}pensamientosAAsentarSegun(unaPersona)
+}
+class AsentamientoSelectivo extends Asentamiento{
+    palabraClave
+    --
+    pensamientosAAsentarSegun(unaPersona)
+}
+object asentamientoNormal{
+    --
+   pensamientosAAsentarSegun(unaPersona)
+}
+object controlHormonal{
+    afectarA(unaPersona)
+}
+object liberarRecuerdos {
+    afectarA(unaPersona)
+}
+object profundizacion{
+    afectarA(unaPersona)
+}
+object restauracionCognitiva{
+    afectarA(unaPersona)
+}
+asentamientoNormal -u-|> Asentamiento
+Asentamiento .u.|> procesosMentales
+controlHormonal .u.|> procesosMentales
+liberarRecuerdos .u.|> procesosMentales
+profundizacion .u.|> procesosMentales
+restauracionCognitiva .u.|> procesosMentales
+Chica -l-> procesosMentales
+
+@enduml
